@@ -1,6 +1,7 @@
 package сom.demoqa.utils;
 
 import com.github.javafaker.Faker;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -49,8 +50,9 @@ public class RandomUtils {
     }
 
     private static String randomState = "";
+
     public static String getRandomState() {
-        randomState =  (String) faker.options().option(stateAndCities().keySet()
+        randomState = (String) faker.options().option(stateAndCities().keySet()
                 .toArray()[faker.random().nextInt(0, 3)]);
         return randomState;
     }

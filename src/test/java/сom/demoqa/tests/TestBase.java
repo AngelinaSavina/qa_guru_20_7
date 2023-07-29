@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+
 import static com.codeborne.selenide.Browsers.CHROME;
 
 public class TestBase {
@@ -13,11 +14,12 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
         Configuration.browser = CHROME;
+        Configuration.pageLoadStrategy = "eager";
         //Configuration.holdBrowserOpen = true;
     }
 
     @AfterAll
-    public static void afterAll(){
+    public static void afterAll() {
         Selenide.closeWebDriver();
     }
 
