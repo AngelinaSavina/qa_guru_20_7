@@ -1,42 +1,67 @@
 package сom.demoqa.tests;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
+import static сom.demoqa.utils.RandomUtils.*;
 import сom.demoqa.pages.PracticeFormPage;
 
-public class PracticeFromTestWithPageObjects extends TestBase {
+import java.util.Locale;
 
+public class PracticeFromTestWithPageObjects extends TestBase {
     PracticeFormPage practiceFormPage = new PracticeFormPage();
 
-    @Test
-    void successTest(){
 
-        practiceFormPage.openPage()
-                .footerRemove()
-                .setFirstName("Angelina")
-                .setLastName("Savina")
-                .setUserEmail("angelinaa@mail.com")
-                .setGender()
-                .setNumber("1234567891")
-                .setDateOfBirth()
-                .setSubject("ec")
-                .setHobbie()
-                .setPicture("imageTest.png")
-                .setAddress("Cyprus is current address")
-                .setState()
-                .setCity()
-                .submit()
-                .verifyModalDialogWindow()
-                .verifyResult("Student Name", "Angelina Savina")
-                .verifyResult("Student Email", "angelinaa@mail.com")
-                .verifyResult("Gender", "Female")
-                .verifyResult("Mobile", "1234567891")
-                .verifyResult("Date of Birth", "08 June,1996")
-                .verifyResult("Subjects", "Economics")
-                .verifyResult("Hobbies", "Reading")
-                .verifyResult("Picture", "imageTest.png")
-                .verifyResult("Address", "Cyprus is current address")
-                .verifyResult("State and City", "NCR Delhi");
-    }
+        @Test
+        void successTest(){
 
+            Faker faker = new Faker(new Locale("en"));
+            String
+                    firstName = faker.name().firstName(),
+                    lastName = faker.name().lastName(),
+                    userEmail = faker.internet().emailAddress(),
+                    gender = getRandomGender(),
+                    number = faker.phoneNumber().subscriberNumber(10),
+                    subject = getRandomSubject(),
+                    pictureURL = "imageTest.png",
+                    address = faker.address().fullAddress(),
+                    day = String.format("%02d", faker.number().numberBetween(1, 28)),
+                    month = getRandomMonth(),
+                    year = String.valueOf(getRandomInt(1960, 2000)),
+                    hobbies = getRandomHobby(),
+                    state = getRandomState(),
+                    city = getRandomCity();
+
+            practiceFormPage
+                    .openPage()
+                    .footerRemove()
+                    .setFirstName(firstName)
+                    .setLastName(lastName)
+                    .setUserEmail(userEmail)
+                    .setGender()
+                    .setNumber(number)
+                    .setDateOfBirth(day, month, year)
+                    .setSubject(subject)
+                    .setHobbie()
+                    .setPicture(pictureURL)
+                    .setAddress(address)
+                    .setState()
+                    .setCity()
+                    .submit();
 
 }
+            practiceFormPage
+                    .verifyModalDialogWindow()
+                    .verifyResult("Student Name",  firstName + " " + lastName)
+                    .verifyResult("Student Email", userEmail)
+                    .verifyResult("Gender", gender)
+                    .verifyResult("Mobile", number)
+                    .verifyResult("Date of Birth", day + " " + month + "," + year)
+                    .verifyResult("Subjects", subject)
+                    .verifyResult("Hobbies", hobbies)
+                    .verifyResult("Picture", pictureURL)
+                    .verifyResult("Address", address)
+                    .verifyResult("State and City", state + " " + city);
+        }
+
+
+    }

@@ -1,12 +1,14 @@
 package сom.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import сom.demoqa.pages.components.CalendarComponent;
 import сom.demoqa.pages.components.ResultTableComponent;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class PracticeFormPage {
+    CalendarComponent calendar = new CalendarComponent();
     ResultTableComponent resultTableComponent = new ResultTableComponent();
 
 
@@ -16,10 +18,10 @@ public class PracticeFormPage {
             userEmailInput =  $("#userEmail"),
             genderWrapper = $(byText("Female")),
             userNumber = $("#userNumber"),
-            birthWrapper = $("#dateOfBirth-wrapper"),
-            dateOfBirthWrapper = $(".react-datepicker__day--008"),
+            birthDayInput = $("#dateOfBirthInput"),
             subjectsInput =  $("#subjectsInput"),
-            subjectInput = $(byText("Economics")),
+
+            subjectsMathInput = $("#react-select-2-option-0"),
             hobbiesWrapper = $("#hobbiesWrapper").$(byText("Reading")),
             picture = $("#uploadPicture"),
             currentAddressInput = $("#currentAddress"),
@@ -69,20 +71,15 @@ public class PracticeFormPage {
 
         return this;
     }
-    public PracticeFormPage setDateOfBirth () {
-        birthWrapper.$("#dateOfBirthInput").click();
-        birthWrapper.$("#dateOfBirthInput").click();
-        birthWrapper.$(".react-datepicker__month-select").click();
-        birthWrapper.$(byText("June")).click();
-        birthWrapper.$(".react-datepicker__year-select").click();
-        birthWrapper.$(byText("1996")).click();
-        dateOfBirthWrapper.click();
+    public PracticeFormPage setDateOfBirth (String day, String month, String year) {
+            birthDayInput.click();
+            calendar.setDateOfBirth(day, month, year);
 
         return this;
     }
     public PracticeFormPage setSubject (String value) {
         subjectsInput.setValue(value);
-        subjectInput.click();
+        subjectsMathInput.click();
 
         return this;
     }
