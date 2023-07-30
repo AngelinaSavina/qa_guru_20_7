@@ -39,15 +39,15 @@ public class PracticeFromTestWithPageObjects extends TestBase {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserEmail(userEmail)
-                .setGender()
+                .setGender(gender)
                 .setNumber(number)
                 .setDateOfBirth(day, month, year)
                 .setSubject(subject)
-                .setHobbie()
+                .setHobbie(hobbies)
                 .setPicture(pictureURL)
                 .setAddress(address)
-                .setState()
-                .setCity()
+                .setState(state)
+                .setCity(city)
                 .submit();
 
 
